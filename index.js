@@ -60,6 +60,9 @@ function handleDel(){
 function handleEval(){
     if(!cache.length || !numberStore.length) return
     let result = evaluate()
+    if(Number.isInteger(result)){
+        result = Number(result.toFixed(2))
+    }
     updateCache(result)
     updateDisplay(result, true)
     updateSideDisplay()
@@ -88,6 +91,7 @@ function handleOperators(e){
         updateSideDisplay()
     } else {
         let result = evaluate()
+        if(Number.isInteger(result)) result = Number(result.toFixed(2))
         updateCache(result)
         updateDisplay(result, true)
         operatorPressed = true
@@ -105,7 +109,7 @@ function updateDisplay(currentNumber, clrscr){
 }
 
 function updateSideDisplay(){
-    let content = `${cache[0]} ${currentOperator}`
+    let content = cache + "   " + currentOperator
     sideDisplay.textContent = content
 }
 
@@ -133,6 +137,7 @@ function evaluate(){
             return firstNumber * secondNumber
             break
         case '/':
+            if(secondNumber === 0) return 'Nice try lol'
             return firstNumber / secondNumber
             break
         case '%':
