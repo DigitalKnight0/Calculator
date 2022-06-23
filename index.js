@@ -143,5 +143,8 @@ function evaluate(){
         case '%':
             return firstNumber % secondNumber
             break
+        case '^':
+            return Math.pow(firstNumber, secondNumber)
+            break
     }
 }
